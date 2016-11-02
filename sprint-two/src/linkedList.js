@@ -60,4 +60,5 @@ var Node = function(value) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ * The worst case time complexity of contains function is O(n)
  */
