@@ -13,11 +13,19 @@ var Queue = function() {
 var queueMethods = {};
 
 queueMethods.enqueue = function(value) {
-
+  this.storage[this.back] = value;
+  this.back++;
+  this.length++;  
 };
 
 queueMethods.dequeue = function() {
-
+  if (this.length > 0) {
+    this.length--;
+    var head = this.storage[this.front];
+    delete this.storage[this.front];
+    this.front++;
+    return head;
+  }
 };
 
 queueMethods.size = function() {
