@@ -28,3 +28,6 @@ queueMethods.size = function(){
   	return this.last - this.first;
   };
 
+queueMethods.size = function() {
+  return this.length;
+};

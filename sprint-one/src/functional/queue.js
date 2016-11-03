@@ -5,6 +5,9 @@ var Queue = function() {
   var last = 0;
   // Use an object with numeric keys to store values
   var storage = {};
+  var size = 0;
+  var front = 0;
+  var back = 0;
 
   // Implement the methods below
 
