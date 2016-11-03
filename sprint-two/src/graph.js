@@ -19,8 +19,7 @@ Graph.prototype.contains = function(node) {
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
 
-debugger;
-  for(var link in this[node]){
+  for (var link in this[node]){
     this.removeEdge(node, Number(link));
   }
 
@@ -51,10 +50,21 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
 
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
+
+  for ( var key in this) {
+    cb(key);
+  }
 };
 
 /*
  * Complexity: What is the time complexity of the above functions?
+  addnode is constant
+  contains is constant time
+  remove node is O(n)
+  hasEdge is constant
+  addEdge is constant
+  removeEdge is constant
+  forEachNode is O(n) 
  */
 
 
