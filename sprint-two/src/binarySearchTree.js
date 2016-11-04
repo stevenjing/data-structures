@@ -42,7 +42,7 @@ BinarySearchTree.prototype.contains = function (value, node) {
   node = node || this;
 
 
-  function search (value, node) {
+  var search = function(value, node) {
 
     if (value === node.value) {
       match = true;
@@ -56,7 +56,7 @@ BinarySearchTree.prototype.contains = function (value, node) {
     if (node.right !== null && value >= node.right.value) {
       search(value, node.right);
     }
-  }
+  };
 
   // if time come back and look at the potential recursive pattern below
   // return (contains(left) || contains(right));
@@ -79,6 +79,56 @@ BinarySearchTree.prototype.depthFirstLog = function (cb, node) {
   if (node.right !== null) {
     node.depthFirstLog(cb, node.right);
   }
+};
+
+BinarySearchTree.prototype.depth = function(node) {
+
+  node = node || this;
+  
+  // debugger;
+
+  if (node.left === null && node.right === null) {
+    return 1;
+  }
+
+  if (node.left === null && node.right !== null) {
+    return node.depth(node.right) + 1;
+  }
+
+  if (node.right === null && node.left !== null) {
+    return node.depth(node.left) + 1;
+  }
+
+  return (Math.max(node.depth(node.left) + 1, node.depth(node.right) + 1));
+
+};
+
+BinarySearchTree.prototype.balancer = function() {
+
+// if depth is greater than the log ofnumber of nodes it is out of balance
+// math.ceil of the log of the # of nodes
+
+};
+
+BinarySearchTree.prototype.size = function(node) {
+
+   node = node || this;
+  
+  // debugger;
+
+  if (node.left === null && node.right === null) {
+    return 1;
+  }
+
+  if (node.left === null && node.right !== null) {
+    return node.size(node.right) + 1;
+  }
+
+  if (node.right === null && node.left !== null) {
+    return node.size(node.left) + 1;
+  }
+
+  return node.size(node.left) + node.size(node.right) + 1;
 };
 
 /*
