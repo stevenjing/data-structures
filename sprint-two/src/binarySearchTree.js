@@ -48,11 +48,12 @@ BinarySearchTree.prototype.contains = function (value, node) {
       match = true;
     }
 
-    if (node.left !== null) {
+
+    if (node.left !== null && value <= node.left.value) {
       search(value, node.left);
     }
     
-    if (node.right !== null) {
+    if (node.right !== null && value >= node.right.value) {
       search(value, node.right);
     }
   }
