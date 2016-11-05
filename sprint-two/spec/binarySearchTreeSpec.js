@@ -98,4 +98,25 @@ describe('binarySearchTree', function() {
     // check to see the depth is now correct
     expect(binarySearchTree.depth()).to.equal(4);
   });
+
+
+  it('should delete a node in the tree and still retain cohesion to the rest of the tree', function() { 
+
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(7);
+    binarySearchTree.insert(11);
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(12);
+    binarySearchTree.insert(13);
+
+    expect(binarySearchTree.size()).to.equal(9);
+    binarySearchTree.delete(12);
+    expect(binarySearchTree.size()).to.equal(8);
+    binarySearchTree.delete(7);
+    expect(binarySearchTree.size()).to.equal(7);
+    binarySearchTree.delete(5);
+    expect(binarySearchTree.size()).to.equal(6);
+  });
+
 });
