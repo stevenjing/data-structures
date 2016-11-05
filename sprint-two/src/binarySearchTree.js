@@ -161,7 +161,17 @@ BinarySearchTree.prototype.getTreeArray = function (node) {
   return results;
 };
 
+BinarySearchTree.prototype.delete = function (value, node) {
 
+  // node = node || this;
+
+if (! this.contains(value)) {
+  return 'tree does not contain ' + value;
+}
+
+
+
+};
 
 
 
@@ -178,4 +188,5 @@ BinarySearchTree.prototype.getTreeArray = function (node) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ * The functions above are O(log n).
  */
