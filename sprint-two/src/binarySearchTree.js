@@ -48,12 +48,11 @@ BinarySearchTree.prototype.contains = function (value, node) {
       match = true;
     }
 
-
-    if (node.left !== null && value <= node.left.value) {
+    if (node.left !== null && value <= node.value) {
       search(value, node.left);
     }
     
-    if (node.right !== null && value >= node.right.value) {
+    if (node.right !== null) {
       search(value, node.right);
     }
   };
@@ -126,8 +125,6 @@ BinarySearchTree.prototype.balancer = function() {
 BinarySearchTree.prototype.size = function(node) {
 
   node = node || this;
-  
-  // debugger;
 
   if (node.left === null && node.right === null) {
     return 1;
@@ -163,20 +160,117 @@ BinarySearchTree.prototype.getTreeArray = function (node) {
 
 BinarySearchTree.prototype.delete = function (value, node) {
 
-  // node = node || this;
+  if (! this.contains(value)) {
+    return 'tree does not contain ' + value;
+  }
 
-if (! this.contains(value)) {
-  return 'tree does not contain ' + value;
-}
+  var parentNode = this.find(value, this);
+  
+  if (value < parentNode.value) { // this tells is the delet node is on the left
+    
+  // case 1 left side - last item in tree, both children == null
+  //debugger;
+    if (parentNode.left.left === null && parentNode.left.right === null) {
+      parentNode.left = null;
+    } else if (parentNode.left.left === null || parentNode.left.right === null) {
+        // case 2 left side - only one child on left sdie
+      parentNode.left = parentNode.left.left || parentNode.left.right;
+    } else {
+      var newNode = this.findMin(parentNode.left);
+      debugger;
+      parentNode.left.value = newNode.value;
+      //this.delete(newNode.value, newNode);
+    }
+
+  } else if ( value > parentNode.value) {  // this tells us the delete node is on the right.
+
+    // case 1
+    if (parentNode.right.left === null && parentNode.right.right === null) {
+      parentNode.right = null;
+    } else if (parentNode.right.left === null || parentNode.right.right === null) {
+      parentNode.right = parentNode.right.left || parentNode.right.right;
+    }
+  }  
+};
+
+BinarySearchTree.prototype.find = function (value, node) {
+
+  var match = null;
+  node = node || this;
 
 
+  var search = function(value, node) {
+
+    if (match !== null) {
+      return;
+    }
+
+    if ( node.left && value === node.left.value) {
+      match = node;
+      return;
+    } 
+
+    if ( node.right && value === node.right.value) {
+      match = node;
+      return;
+    }
+ 
+    if (node.left !== null && value <= node.value) {
+      search(value, node.left);
+    }
+    
+    if (node.right !== null) {
+      search(value, node.right);
+    }
+  };
+  
+  search(value, node);
+  return match;
+};
+
+BinarySearchTree.prototype.findMin = function (node) {
+
+  node = node || this;
+
+  var min = node.value;
+  var minNode = node;
+
+  var search = function(node) {
+
+    if (node.value < min) {
+      min = node.value;
+      minNode = node;
+    }
+
+    if (node.left !== null) {
+      search(node.left);
+    }
+
+  };
+
+  search(node);
+  return minNode;
 
 };
 
+BinarySearchTree.prototype.insertNode = function (rootNode, insertNode) {
 
+  if (rootNode.value > insertNode.value) {
+    if (rootNode.left === null){
+      rootNode.left = insertNode;
+    } else {
+      rootNode.insertNode(rootNode.left, insertNode);
+    }
+  }
 
-
-
+  if (rootNode.value < insertNode.value) {
+    if (rootNode.right === null){
+      rootNode.right = insertNode;
+    } else {
+      rootNode.insertNode(rootNode.right, insertNode);
+    }
+  }
+};
 
 
 

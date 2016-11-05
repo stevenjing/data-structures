@@ -99,6 +99,62 @@ describe('binarySearchTree', function() {
     expect(binarySearchTree.depth()).to.equal(4);
   });
 
+  it('should find and return a node with a specified value', function() {
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(11);
+    binarySearchTree.insert(12);
+    binarySearchTree.insert(9);
+    binarySearchTree.insert(10);
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(7);
+
+    expect(binarySearchTree.find(10).value).to.equal(9); 
+    expect(binarySearchTree.find(7).value).to.equal(6);
+    expect(binarySearchTree.find(6).value).to.equal(9);
+    expect(binarySearchTree.find(9).value).to.equal(11);
+  });
+
+  it('find the minimum value in the tree', function() {
+
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(11);
+    binarySearchTree.insert(12);
+    binarySearchTree.insert(9);
+    binarySearchTree.insert(10);
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(7);
+
+    expect(binarySearchTree.findMin().value).to.equal(2);
+
+    binarySearchTree2 = BinarySearchTree(10);
+    binarySearchTree2.insert(8);
+    binarySearchTree2.insert(7);
+    binarySearchTree2.insert(6);
+    binarySearchTree2.insert(5);
+    binarySearchTree2.insert(4);
+    binarySearchTree2.insert(3);
+    binarySearchTree2.insert(2);
+
+    expect(binarySearchTree2.findMin().value).to.equal(2);
+
+  });
+
+  it('should insert a node in the corrent position in the tree if given a node and a starting point in the tree', function() {
+
+    binarySearchTree3 = BinarySearchTree(3);
+    binarySearchTree4 = BinarySearchTree(4);
+    binarySearchTree2 = BinarySearchTree(2);
+    binarySearchTree8 = BinarySearchTree(8);
+    binarySearchTree7 = BinarySearchTree(7);
+
+    binarySearchTree.insertNode(binarySearchTree, binarySearchTree3);
+    binarySearchTree.insertNode(binarySearchTree, binarySearchTree4);
+    binarySearchTree.insertNode(binarySearchTree, binarySearchTree2);
+    binarySearchTree.insertNode(binarySearchTree, binarySearchTree8);
+    binarySearchTree.insertNode(binarySearchTree, binarySearchTree7);
+
+    expect(binarySearchTree.getTreeArray()).to.eql([2, 3, 4, 5, 7, 8]);
+  });
 
   it('should delete a node in the tree and still retain cohesion to the rest of the tree', function() { 
 
@@ -111,12 +167,15 @@ describe('binarySearchTree', function() {
     binarySearchTree.insert(7);
 
     expect(binarySearchTree.size()).to.equal(8);
-    binarySearchTree.delete(12);
-    expect(binarySearchTree.getTreeArray()).to.eql([2, 5, 6, 7, 9, 10, 11]);
+    binarySearchTree.delete(9);
+    expect(binarySearchTree.getTreeArray()).to.eql([5, 6, 7, 2, 10, 11, 12]);
     binarySearchTree.delete(7);
     expect(binarySearchTree.getTreeArray()).to.eql([2, 5, 6, 9, 10, 11]);
+    debugger;
     binarySearchTree.delete(5);
-    expect(binarySearchTree.size()).to.equal(6);
+    expect(binarySearchTree.getTreeArray()).to.eql([2, 6, 9, 10, 11]);
   });
+
+
 
 });
