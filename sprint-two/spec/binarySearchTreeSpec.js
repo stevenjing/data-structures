@@ -67,6 +67,18 @@ describe('binarySearchTree', function() {
     expect(binarySearchTree.size()).to.be.equal(9);
   });
 
+  it('should return an sorted array from the binary tree', function() {
+
+    binarySearchTree.insert(3);
+    binarySearchTree.insert(2);
+    binarySearchTree.insert(7);
+    binarySearchTree.insert(11);
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(12);
+    binarySearchTree.insert(13);
+    expect(binarySearchTree.getTreeArray()).to.eql([2, 3, 5, 6, 7, 11, 12, 13]);
+  });
+
   it('should balance a tree to the depth of log N when given an unbalanced tree', function() { 
 
     binarySearchTree.insert(3);
@@ -80,10 +92,10 @@ describe('binarySearchTree', function() {
     // depth check
     expect(binarySearchTree.depth()).to.equal(5);
     // balance binary tree
-    binarySearchTree.balancer();
+    binarySearchTree = binarySearchTree.balancer();
     // check to see new root is 3
-    expect(binarySearchTree.value).to.equal(3);
+    expect(binarySearchTree.value).to.equal(6);
     // check to see the depth is now correct
-    expect(binarySearchTree.depth()).to.equal(1);
+    expect(binarySearchTree.depth()).to.equal(4);
   });
 });

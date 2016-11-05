@@ -84,8 +84,6 @@ BinarySearchTree.prototype.depthFirstLog = function (cb, node) {
 BinarySearchTree.prototype.depth = function(node) {
 
   node = node || this;
-  
-  // debugger;
 
   if (node.left === null && node.right === null) {
     return 1;
@@ -105,14 +103,29 @@ BinarySearchTree.prototype.depth = function(node) {
 
 BinarySearchTree.prototype.balancer = function() {
 
-// if depth is greater than the log ofnumber of nodes it is out of balance
-// math.ceil of the log of the # of nodes
+  var array = this.getTreeArray(this);
+
+  var newBinarySearchTree = function(start, end) {
+    
+    var mid = Math.floor((start + end) / 2);
+
+    if (start > end) {
+      return null;
+    }
+
+    var root = new BinarySearchTree(array[mid]);  // new node = 3; new node = 2
+    root.left = newBinarySearchTree(start, mid - 1);
+    root.right = newBinarySearchTree(mid + 1, end);
+    return root;
+  };
+  
+  return newBinarySearchTree(0, array.length - 1);
 
 };
 
 BinarySearchTree.prototype.size = function(node) {
 
-   node = node || this;
+  node = node || this;
   
   // debugger;
 
@@ -130,6 +143,38 @@ BinarySearchTree.prototype.size = function(node) {
 
   return node.size(node.left) + node.size(node.right) + 1;
 };
+
+BinarySearchTree.prototype.getTreeArray = function (node) { 
+
+  node = node || this;
+
+  var results = [];
+  var inOrderTraversal = function (node) {
+    if (node !== null) {
+      inOrderTraversal(node.left);
+      results.push(node.value);
+      inOrderTraversal(node.right);
+    }
+  };
+  inOrderTraversal(node);
+
+  return results;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
  * Complexity: What is the time complexity of the above functions?
