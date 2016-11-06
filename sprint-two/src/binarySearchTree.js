@@ -164,22 +164,35 @@ BinarySearchTree.prototype.delete = function (value, node) {
     return 'tree does not contain ' + value;
   }
 
+
   var parentNode = this.find(value, this);
   
+  if (parentNode === null) {
+
+    if (this.left === null && this.right === null){
+      return {};
+    } else if (this.left === null || this.right === null) {
+      return this.left || this.right;
+    } else {
+      debugger;
+      var newNode = this.findMin(this.right);
+      this.delete(newNode.value, newNode);
+      this.value = newNode.value;
+    }
+  } else {
+
   if (value < parentNode.value) { // this tells is the delet node is on the left
     
-  // case 1 left side - last item in tree, both children == null
-  //debugger;
     if (parentNode.left.left === null && parentNode.left.right === null) {
       parentNode.left = null;
     } else if (parentNode.left.left === null || parentNode.left.right === null) {
         // case 2 left side - only one child on left sdie
       parentNode.left = parentNode.left.left || parentNode.left.right;
     } else {
-      var newNode = this.findMin(parentNode.left);
-      debugger;
+      var newNode = this.findMin(parentNode.left.right);
+      this.delete(newNode.value, newNode);
       parentNode.left.value = newNode.value;
-      //this.delete(newNode.value, newNode);
+ 
     }
 
   } else if ( value > parentNode.value) {  // this tells us the delete node is on the right.
@@ -189,8 +202,13 @@ BinarySearchTree.prototype.delete = function (value, node) {
       parentNode.right = null;
     } else if (parentNode.right.left === null || parentNode.right.right === null) {
       parentNode.right = parentNode.right.left || parentNode.right.right;
+    } else {
+      var newNode = this.findMin(parentNode.right.right);
+      this.delete(newNode.value, newNode);
+      parentNode.right.value = newNode.value;
     }
   }  
+}
 };
 
 BinarySearchTree.prototype.find = function (value, node) {

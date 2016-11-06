@@ -168,12 +168,15 @@ describe('binarySearchTree', function() {
 
     expect(binarySearchTree.size()).to.equal(8);
     binarySearchTree.delete(9);
-    expect(binarySearchTree.getTreeArray()).to.eql([5, 6, 7, 2, 10, 11, 12]);
+    expect(binarySearchTree.getTreeArray()).to.eql([2, 5, 6, 7, 10, 11, 12]);
     binarySearchTree.delete(7);
-    expect(binarySearchTree.getTreeArray()).to.eql([2, 5, 6, 9, 10, 11]);
-    debugger;
+    expect(binarySearchTree.getTreeArray()).to.eql([2, 5, 6, 10, 11, 12]);
+    binarySearchTree.delete(10);
+    expect(binarySearchTree.getTreeArray()).to.eql([2, 5, 6, 11, 12]);
+    binarySearchTree.delete(11);
+    expect(binarySearchTree.getTreeArray()).to.eql([2, 5, 6, 12]);
     binarySearchTree.delete(5);
-    expect(binarySearchTree.getTreeArray()).to.eql([2, 6, 9, 10, 11]);
+    expect(binarySearchTree.getTreeArray()).to.eql([2, 6, 12]);
   });
 
 
